@@ -1,16 +1,11 @@
 ### Setup
 
-1. Backup your existing config (if any):
-```bash
-mv ~/.config/nvim ~/.config/nvim.backup
-```
-
-2. Clone this repo:
+1. Clone this repo:
 ```bash
 git clone git@github.com:username/nvim_config.git ~/.config/nvim
 ```
 
-3. Open Neovim - plugins will install automatically:
+2. Open Neovim - plugins will install automatically:
 ```bash
 nvim
 ```
