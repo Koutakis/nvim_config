@@ -2,7 +2,7 @@
 
 1. Clone this repo:
 ```bash
-git clone git@github.com:username/nvim_config.git ~/.config/nvim
+git clone git@github.com:Koutakis/nvim_config.git ~/.config/nvim
 ```
 
 2. Open Neovim - plugins will install automatically:
