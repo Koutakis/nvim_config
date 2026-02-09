@@ -100,8 +100,13 @@ local plugins = {
             require("dashboard").setup({})
         end,
     },
+    {
+    {'akinsho/toggleterm.nvim', version = "*", config = true}
+    }
 }
 
 require("lazy").setup(plugins, {
     install = { colorscheme = { "catppuccin" } },
 })
+
+

@@ -29,5 +29,10 @@ map("n", "<C-l>", "<C-w>l")
 -- Clear search highlight
 map("n", "<Esc>", "<cmd>noh<cr><Esc>")
 
+vim.keymap.set('n', '<leader>q', '<cmd>ToggleTerm<cr>', { desc = 'Toggle terminal' })
+
 -- LSP (set in lsp config per-buffer, but global reminders)
 -- gd, gD, gi, gr, K — all handled in lsp/init.lua
+
+-- Terminal mode escape
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
