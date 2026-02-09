@@ -55,13 +55,10 @@ local plugins = {
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
-        config = function()
-            require("nvim-treesitter.configs").setup({
-                ensure_installed = { "python", "yaml", "lua", "markdown" },
-                highlight = { enable = true },
-                indent = { enable = true },
-            })
-        end,
+        opts = {
+            highlight = { enable = true },
+            indent = { enable = true },
+        },
     },
     {
         "williamboman/mason.nvim",
