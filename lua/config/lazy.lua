@@ -1,18 +1,15 @@
-return {
+local plugins = {
     {
         "catppuccin/nvim",
         name = "catppuccin",
         priority = 1000,
-        config = function()
-            require("catppuccin").setup({
-                flavour = "mocha",
-                transparent = true,
-                styles = {
-                    comments = { italic = true },
-                    conditionals = { italic = true },
-                },
-            })
-            vim.cmd.colorscheme "catppuccin-mocha"
+        opts = {
+            flavour = "mocha",
+            transparent_background = true,
+        },
+        config = function(_, opts)
+            require("catppuccin").setup(opts)
+            vim.cmd.colorscheme("catppuccin-mocha")
         end,
     },
     { "nvim-tree/nvim-web-devicons", lazy = true },
@@ -107,3 +104,7 @@ return {
         end,
     },
 }
+
+require("lazy").setup(plugins, {
+    install = { colorscheme = { "catppuccin" } },
+})
