@@ -36,3 +36,6 @@ vim.keymap.set('n', '<leader>q', '<cmd>ToggleTerm<cr>', { desc = 'Toggle termina
 
 -- Terminal mode escape
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+
+-- Make Ctrl+c behave like Esc in insert mode
+vim.keymap.set("i", "<C-c>", "<Esc>", { desc = "Exit insert mode" })
