@@ -13,3 +13,4 @@ nvim
 ### Post-install
 - LSP servers install on first use via Mason
 - Run `:checkhealth` to verify everything works
+- Do Lazy sync to update
