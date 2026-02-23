@@ -54,3 +54,15 @@ vim.g.clipboard = {
         ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
     },
 }
+
+-- Auto-reload files changed outside nvim
+vim.opt.autoread = true
+vim.api.nvim_create_autocmd({"FocusGained", "BufEnter"}, {
+    pattern = "*",
+    command = "checktime",
+})
+
+-- Disable swap files
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.writebackup = false
