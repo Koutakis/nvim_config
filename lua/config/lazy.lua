@@ -1,25 +1,28 @@
 local plugins = {
     {
-        "catppuccin/nvim",
-        name = "catppuccin",
+        "cameron-wags/rainbow_csv.nvim",
+        config = true,
+        ft = { "csv", "tsv", "csv_semicolon", "csv_whitespace", "csv_pipe", "rfc_csv", "rfc_semicolon" },
+        cmd = { "RainbowDelim", "RainbowDelimSimple", "RainbowDelimQuoted", "RainbowMultiDelim" },
+    },
+    {
+        "rebelot/kanagawa.nvim",
         priority = 1000,
-        opts = {
-            flavour = "mocha",
-            transparent_background = true,
-        },
-        config = function(_, opts)
-            require("catppuccin").setup(opts)
-            vim.cmd.colorscheme("catppuccin-mocha")
+        config = function()
+            require("kanagawa").setup({
+                transparent = true,
+            })
+            vim.cmd.colorscheme("kanagawa")
         end,
     },
     { "nvim-tree/nvim-web-devicons", lazy = true },
     {
         "nvim-lualine/lualine.nvim",
-        dependencies = { "catppuccin" },
+        dependencies = { "nvim-tree/nvim-web-devicons" },
         config = function()
             require("lualine").setup({
                 options = {
-                    theme = "catppuccin",
+                    theme = "kanagawa",
                     globalstatus = true,
                     icons_enabled = true,
                     component_separators = { left = "", right = "" },
@@ -111,6 +114,4 @@ local plugins = {
     },
 }
 
-require("lazy").setup(plugins, {
-    install = { colorscheme = { "catppuccin" } },
-})
+require("lazy").setup(plugins)

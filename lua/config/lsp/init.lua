@@ -1,7 +1,6 @@
-local function on_attach(_, bufnr)
+local function on_attach(client, bufnr)
     local map = vim.keymap.set
     local opts = { buffer = bufnr, silent = true }
-
     map("n", "gd",         "<cmd>Lsp goto_definition<cr>",      opts)
     map("n", "gD",         "<cmd>Lsp goto_declaration<cr>",     opts)
     map("n", "gi",         "<cmd>Lsp goto_implementation<cr>",  opts)
@@ -12,6 +11,10 @@ local function on_attach(_, bufnr)
     map("n", "]d",         "<cmd>Lsp next_diagnostic<cr>",      opts)
     map("n", "[d",         "<cmd>Lsp prev_diagnostic<cr>",      opts)
     map("n", "<leader>d",  "<cmd>Lsp show_diagnostics<cr>",     opts)
+    
+    if client.server_capabilities.semanticTokensProvider then
+        vim.lsp.semantic_tokens.start(bufnr, client.id)
+    end
 end
 
 vim.lsp.config.pyright = {
