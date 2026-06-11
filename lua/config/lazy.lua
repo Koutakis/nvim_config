@@ -1,6 +1,12 @@
 local plugins = {
     -- UI
     {
+        "MeanderingProgrammer/render-markdown.nvim",
+        opts = {},
+        dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+        ft = { "markdown" },
+    },
+    {
         "rebelot/kanagawa.nvim",
         priority = 1000,
         config = function()
@@ -26,15 +32,16 @@ local plugins = {
     { "nvim-tree/nvim-web-devicons", lazy = true },
     { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
     { "karb94/neoscroll.nvim", config = true },
-    { "amansingh-afk/milli.nvim", lazy = false },
+    
     -- Dashboard
     {
-    "amansingh-afk/milli.nvim",
-    lazy = false,
-    config = function()
-        require("milli").vimenter({ splash = "blackhole", loop = true })
-    end,
+        "amansingh-afk/milli.nvim",
+        lazy = false,
+        config = function()
+            require("milli").vimenter({ splash = "blackhole", loop = true })
+        end,
     },
+    
     -- File navigation
     {
         "nvim-neo-tree/neo-tree.nvim",
@@ -60,7 +67,11 @@ local plugins = {
             { "<leader>fh", "<cmd>Telescope help_tags<cr>",  desc = "Help tags" },
         },
     },
-
+    {
+    "mg979/vim-visual-multi",
+    branch = "master",
+    lazy = false,
+    },
     -- LSP & completion
     {
         "williamboman/mason.nvim",
@@ -86,7 +97,7 @@ local plugins = {
         event = "InsertEnter",
     },
     { "L3MON4D3/LuaSnip", lazy = true },
-
+    
     -- Editing
     { "windwp/nvim-autopairs",   event = "InsertEnter", config = true },
     { "numToStr/Comment.nvim",   lazy = false },
@@ -98,7 +109,7 @@ local plugins = {
         config = function() require("nvim-surround").setup({}) end,
     },
     { "akinsho/toggleterm.nvim", version = "*", config = true },
-
+    
     -- Syntax
     {
         "nvim-treesitter/nvim-treesitter",
