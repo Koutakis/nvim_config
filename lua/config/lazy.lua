@@ -32,7 +32,7 @@ local plugins = {
     { "nvim-tree/nvim-web-devicons", lazy = true },
     { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
     { "karb94/neoscroll.nvim", config = true },
-    
+
     -- Dashboard
     {
         "amansingh-afk/milli.nvim",
@@ -41,7 +41,7 @@ local plugins = {
             require("milli").vimenter({ splash = "blackhole", loop = true })
         end,
     },
-    
+
     -- File navigation
     {
         "nvim-neo-tree/neo-tree.nvim",
@@ -68,23 +68,24 @@ local plugins = {
         },
     },
     {
-    "mg979/vim-visual-multi",
-    branch = "master",
-    lazy = false,
+        "mg979/vim-visual-multi",
+        branch = "master",
+        lazy = false,
     },
+    {
+    "nvim-telescope/telescope-fzf-native.nvim",
+    build = "make",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    config = function()
+        require("telescope").load_extension("fzf")
+    end,
+    },
+
     -- LSP & completion
     {
         "williamboman/mason.nvim",
         config = function() require("mason").setup() end,
     },
-    {
-        "williamboman/mason-lspconfig.nvim",
-        dependencies = { "williamboman/mason.nvim" },
-        config = function()
-            require("mason-lspconfig").setup({ ensure_installed = { "pyright", "yamlls" } })
-        end,
-    },
-    { "neovim/nvim-lspconfig" },
     {
         "hrsh7th/nvim-cmp",
         dependencies = {
@@ -97,10 +98,10 @@ local plugins = {
         event = "InsertEnter",
     },
     { "L3MON4D3/LuaSnip", lazy = true },
-    
+
     -- Editing
-    { "windwp/nvim-autopairs",   event = "InsertEnter", config = true },
-    { "numToStr/Comment.nvim",   lazy = false },
+    { "windwp/nvim-autopairs",    event = "InsertEnter", config = true },
+    { "numToStr/Comment.nvim",    lazy = false },
     { "folke/todo-comments.nvim", dependencies = { "nvim-lua/plenary.nvim" }, lazy = false },
     {
         "kylechui/nvim-surround",
@@ -109,7 +110,7 @@ local plugins = {
         config = function() require("nvim-surround").setup({}) end,
     },
     { "akinsho/toggleterm.nvim", version = "*", config = true },
-    
+
     -- Syntax
     {
         "nvim-treesitter/nvim-treesitter",

@@ -1,47 +1,18 @@
-local function on_attach(client, bufnr)
-    local map = vim.keymap.set
-    local opts = { buffer = bufnr, silent = true }
-    map("n", "gd",         "<cmd>Lsp goto_definition<cr>",      opts)
-    map("n", "gD",         "<cmd>Lsp goto_declaration<cr>",     opts)
-    map("n", "gi",         "<cmd>Lsp goto_implementation<cr>",  opts)
-    map("n", "gr",         "<cmd>Lsp references<cr>",           opts)
-    map("n", "K",          "<cmd>Lsp hover<cr>",                opts)
-    map("n", "<leader>ca", "<cmd>Lsp codeAction<cr>",           opts)
-    map("n", "<leader>rn", "<cmd>Lsp rename<cr>",               opts)
-    map("n", "]d",         "<cmd>Lsp next_diagnostic<cr>",      opts)
-    map("n", "[d",         "<cmd>Lsp prev_diagnostic<cr>",      opts)
-    map("n", "<leader>d",  "<cmd>Lsp show_diagnostics<cr>",     opts)
-    
-    if client.server_capabilities.semanticTokensProvider then
-        vim.lsp.semantic_tokens.start(bufnr, client.id)
-    end
-end
-
 vim.lsp.config.pyright = {
-    cmd = { "pyright", "--outputjson" },
+    cmd = { "pyright-langserver", "--stdio" },
     filetypes = { "python" },
-    settings = {
-        python = {
-            analysis = {
-                typeCheckingMode = "basic",
-            },
-        },
-    },
+    root_markers = { "pyproject.toml", "setup.py", ".git" },
+    before_init = function(_, config)
+        local venv_python = config.root_dir .. "/.venv/bin/python"
+        if vim.fn.executable(venv_python) == 1 then
+            config.settings.python.pythonPath = venv_python
+        else
+            config.settings.python.pythonPath = vim.fn.exepath("python3")
+        end
+    end,
     on_attach = on_attach,
-}
-
-vim.lsp.config.yamlls = {
-    cmd = { "yaml-language-server", "--stdio" },
-    filetypes = { "yaml", "yaml.docker-compose" },
     settings = {
-        yaml = {
-            hover = true,
-            completion = true,
-            validate = true,
-        },
+        python = { analysis = { typeCheckingMode = "basic" } },
     },
-    on_attach = on_attach,
 }
-
 vim.lsp.enable("pyright")
-vim.lsp.enable("yamlls")
