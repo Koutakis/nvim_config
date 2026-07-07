@@ -7,11 +7,11 @@ local plugins = {
         ft = { "markdown" },
     },
     {
-        "rebelot/kanagawa.nvim",
+        "kbraggins/duskhaven.nvim",
+        lazy = false,
         priority = 1000,
         config = function()
-            require("kanagawa").setup({ transparent = true })
-            vim.cmd.colorscheme("kanagawa")
+            vim.cmd.colorscheme("duskhaven")
         end,
     },
     {
@@ -20,7 +20,7 @@ local plugins = {
         config = function()
             require("lualine").setup({
                 options = {
-                    theme = "kanagawa",
+                    theme = "duskhaven",
                     globalstatus = true,
                     icons_enabled = true,
                     component_separators = { left = "", right = "" },
@@ -110,7 +110,11 @@ local plugins = {
         config = function() require("nvim-surround").setup({}) end,
     },
     { "akinsho/toggleterm.nvim", version = "*", config = true },
-
+    {
+        "nemanjamalesija/smart-paste.nvim",
+        event = "VeryLazy",
+        config = true,
+    },
     -- Syntax
     {
         "nvim-treesitter/nvim-treesitter",

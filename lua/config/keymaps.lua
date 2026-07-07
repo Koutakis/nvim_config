@@ -39,3 +39,8 @@ vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- Make Ctrl+c behave like Esc in insert mode
 vim.keymap.set("i", "<C-c>", "<Esc>", { desc = "Exit insert mode" })
+-- Smart paste from system clipboard
+map("i", "<C-v>", function()
+    vim.cmd("stopinsert")
+    require("smart-paste").paste({ register = "+", key = "p" })
+end, { desc = "Smart paste from system clipboard (insert mode)" })
