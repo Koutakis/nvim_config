@@ -55,6 +55,9 @@ if dap_ok then
     map("n", "<leader>dr", dap.repl.toggle,       { desc = "Toggle REPL" })
 end
 
+-- DATABASE UI
+map("n", "<leader>db", "<cmd>DBUIToggle<cr>", { desc = "Toggle DBUI" })
+
 local dapui_ok, dapui = pcall(require, "dapui")
 if dapui_ok then
     map("n", "<leader>du", dapui.toggle, { desc = "Toggle DAP UI" })
