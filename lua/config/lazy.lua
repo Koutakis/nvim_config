@@ -7,11 +7,15 @@ local plugins = {
         ft = { "markdown" },
     },
     {
-        "kbraggins/duskhaven.nvim",
+        "folke/tokyonight.nvim",
         lazy = false,
         priority = 1000,
         config = function()
-            vim.cmd.colorscheme("duskhaven")
+            require("tokyonight").setup({
+                transparent = false,
+            })
+            -- Change colorscheme here: tokyonight-night, tokyonight-storm, tokyonight-day, tokyonight-moon
+            vim.cmd.colorscheme("tokyonight-night")
         end,
     },
     {
@@ -20,7 +24,7 @@ local plugins = {
         config = function()
             require("lualine").setup({
                 options = {
-                    theme = "duskhaven",
+                    theme = "auto",
                     globalstatus = true,
                     icons_enabled = true,
                     component_separators = { left = "", right = "" },
@@ -51,21 +55,11 @@ local plugins = {
             "MunifTanjim/nui.nvim",
         },
         cmd = "Neotree",
-        keys = {
-            { "<leader>e", "<cmd>Neotree toggle<cr>", desc = "Toggle Neo-tree" },
-            { "<leader>o", "<cmd>Neotree focus<cr>",  desc = "Focus Neo-tree" },
-        },
     },
     {
         "nvim-telescope/telescope.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
         cmd = "Telescope",
-        keys = {
-            { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find files" },
-            { "<leader>fg", "<cmd>Telescope live_grep<cr>",  desc = "Live grep" },
-            { "<leader>fb", "<cmd>Telescope buffers<cr>",    desc = "Buffers" },
-            { "<leader>fh", "<cmd>Telescope help_tags<cr>",  desc = "Help tags" },
-        },
     },
     {
         "mg979/vim-visual-multi",
@@ -73,12 +67,72 @@ local plugins = {
         lazy = false,
     },
     {
-    "nvim-telescope/telescope-fzf-native.nvim",
-    build = "make",
-    dependencies = { "nvim-telescope/telescope.nvim" },
-    config = function()
-        require("telescope").load_extension("fzf")
-    end,
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "make",
+        dependencies = { "nvim-telescope/telescope.nvim" },
+        config = function()
+            require("telescope").load_extension("fzf")
+        end,
+    },
+
+    -- SQL / Database
+    {
+        "tpope/vim-dadbod",
+    },
+    {
+        "kristijanhusak/vim-dadbod-ui",
+        dependencies = { "tpope/vim-dadbod" },
+        cmd = { "DBUI", "DBUIToggle", "DBUIAddConnection" },
+        init = function()
+            vim.g.db_ui_use_nerd_fonts = 1
+        end,
+    },
+
+    -- Formatting
+    {
+        "stevearc/conform.nvim",
+        event = "BufWritePre",
+        config = function()
+            require("conform").setup({
+                formatters_by_ft = {
+                    python = { "ruff_format" },
+                },
+                format_on_save = { timeout_ms = 500, lsp_fallback = true },
+            })
+        end,
+    },
+
+    -- Debugging
+    {
+        "mfussenegger/nvim-dap",
+        dependencies = {
+            "rcarriga/nvim-dap-ui",
+            "nvim-neotest/nvim-nio",
+            "mfussenegger/nvim-dap-python",
+            "jay-babu/mason-nvim-dap.nvim",
+        },
+        config = function()
+            local dap = require("dap")
+            local dapui = require("dapui")
+
+            require("mason-nvim-dap").setup({
+                ensure_installed = { "python" },
+                automatic_installation = true,
+            })
+
+            require("dap-python").setup(vim.fn.exepath("python3"))
+            dapui.setup()
+
+            dap.listeners.after.event_initialized["dapui_config"] = function()
+                dapui.open()
+            end
+            dap.listeners.before.event_terminated["dapui_config"] = function()
+                dapui.close()
+            end
+            dap.listeners.before.event_exited["dapui_config"] = function()
+                dapui.close()
+            end
+        end,
     },
 
     -- LSP & completion
@@ -115,6 +169,7 @@ local plugins = {
         event = "VeryLazy",
         config = true,
     },
+
     -- Syntax
     {
         "nvim-treesitter/nvim-treesitter",

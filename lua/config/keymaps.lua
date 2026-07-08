@@ -44,3 +44,18 @@ map("i", "<C-v>", function()
     vim.cmd("stopinsert")
     require("smart-paste").paste({ register = "+", key = "p" })
 end, { desc = "Smart paste from system clipboard (insert mode)" })
+-- DAP (debugging)
+local dap_ok, dap = pcall(require, "dap")
+if dap_ok then
+    map("n", "<leader>bp", dap.toggle_breakpoint, { desc = "Toggle breakpoint" })
+    map("n", "<leader>dc", dap.continue,          { desc = "Continue" })
+    map("n", "<leader>di", dap.step_into,         { desc = "Step into" })
+    map("n", "<leader>do", dap.step_over,         { desc = "Step over" })
+    map("n", "<leader>dO", dap.step_out,          { desc = "Step out" })
+    map("n", "<leader>dr", dap.repl.toggle,       { desc = "Toggle REPL" })
+end
+
+local dapui_ok, dapui = pcall(require, "dapui")
+if dapui_ok then
+    map("n", "<leader>du", dapui.toggle, { desc = "Toggle DAP UI" })
+end
