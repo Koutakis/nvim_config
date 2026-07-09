@@ -94,6 +94,13 @@ local plugins = {
         event = "BufWritePre",
         config = function()
             require("conform").setup({
+                formatters = {
+                    ruff_format = {
+                        command = "uv",
+                        args = { "run", "ruff", "format", "--stdin-filename", "$FILENAME", "-" },
+                        stdin = true,
+                    },
+                },
                 formatters_by_ft = {
                     python = { "ruff_format" },
                 },
