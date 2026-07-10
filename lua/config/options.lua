@@ -75,3 +75,11 @@ vim.api.nvim_create_autocmd("TermOpen", {
         vim.cmd("highlight! link NormalFloat Normal")
     end,
 })
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+    callback = function()
+        if vim.v.event.operator == "y" then
+            require("vim.ui.clipboard.osc52").copy("+")(vim.v.event.regcontents)
+        end
+    end,
+})
