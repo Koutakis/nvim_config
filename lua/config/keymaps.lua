@@ -1,5 +1,4 @@
 local map = vim.keymap.set
-
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -16,6 +15,9 @@ map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>",  { desc = "Help" })
 -- Buffers
 map("n", "<leader>bd", "<cmd>bd!<cr>",                  { desc = "Delete buffer" })
 
+-- Copy to system clipboard
+map({ "n", "v" }, "<leader>y", '"+y', { desc = "Yank to system clipboard" })
+
 -- Splits
 map("n", "<leader>sv", "<cmd>vsplit<cr>",               { desc = "Vertical split" })
 map("n", "<leader>sh", "<cmd>split<cr>",                { desc = "Horizontal split" })
@@ -29,36 +31,32 @@ map("n", "<C-l>", "<C-w>l")
 -- Clear search highlight
 map("n", "<Esc>", "<cmd>noh<cr><Esc>")
 
-vim.keymap.set('n', '<leader>q', '<cmd>ToggleTerm<cr>', { desc = 'Toggle terminal' })
+-- Terminal
+map("n", "<leader>q", "<cmd>ToggleTerm<cr>", { desc = "Toggle terminal" })
 
 -- LSP (set in lsp config per-buffer, but global reminders)
 -- gd, gD, gi, gr, K — all handled in lsp/init.lua
 
 -- Terminal mode escape
-vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+map("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 -- Make Ctrl+c behave like Esc in insert mode
-vim.keymap.set("i", "<C-c>", "<Esc>", { desc = "Exit insert mode" })
+map("i", "<C-c>", "<Esc>", { desc = "Exit insert mode" })
+
 -- Smart paste from system clipboard
 map("i", "<C-v>", function()
     vim.cmd("stopinsert")
     require("smart-paste").paste({ register = "+", key = "p" })
 end, { desc = "Smart paste from system clipboard (insert mode)" })
+
 -- DAP (debugging)
-local dap_ok, dap = pcall(require, "dap")
-if dap_ok then
-    map("n", "<leader>bp", dap.toggle_breakpoint, { desc = "Toggle breakpoint" })
-    map("n", "<leader>dc", dap.continue,          { desc = "Continue" })
-    map("n", "<leader>di", dap.step_into,         { desc = "Step into" })
-    map("n", "<leader>do", dap.step_over,         { desc = "Step over" })
-    map("n", "<leader>dO", dap.step_out,          { desc = "Step out" })
-    map("n", "<leader>dr", dap.repl.toggle,       { desc = "Toggle REPL" })
-end
+map("n", "<leader>bp", function() require("dap").toggle_breakpoint() end, { desc = "Toggle breakpoint" })
+map("n", "<leader>dc", function() require("dap").continue() end,          { desc = "Continue" })
+map("n", "<leader>di", function() require("dap").step_into() end,         { desc = "Step into" })
+map("n", "<leader>do", function() require("dap").step_over() end,         { desc = "Step over" })
+map("n", "<leader>dO", function() require("dap").step_out() end,          { desc = "Step out" })
+map("n", "<leader>dr", function() require("dap").repl.toggle() end,       { desc = "Toggle REPL" })
+map("n", "<leader>du", function() require("dapui").toggle() end,          { desc = "Toggle DAP UI" })
 
--- DATABASE UI
+-- Database UI
 map("n", "<leader>db", "<cmd>DBUIToggle<cr>", { desc = "Toggle DBUI" })
-
-local dapui_ok, dapui = pcall(require, "dapui")
-if dapui_ok then
-    map("n", "<leader>du", dapui.toggle, { desc = "Toggle DAP UI" })
-end
