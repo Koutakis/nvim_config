@@ -1,7 +1,7 @@
 local plugins = {
-    -- UI
+    -- ui
     {
-        "MeanderingProgrammer/render-markdown.nvim",
+        "meanderingprogrammer/render-markdown.nvim",
         opts = {},
         dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
         ft = { "markdown" },
@@ -14,7 +14,7 @@ local plugins = {
             require("tokyonight").setup({
                 transparent = false,
             })
-            -- Change colorscheme here: tokyonight-night, tokyonight-storm, tokyonight-day, tokyonight-moon
+            -- change colorscheme here: tokyonight-night, tokyonight-storm, tokyonight-day, tokyonight-moon
             vim.cmd.colorscheme("tokyonight-night")
         end,
     },
@@ -37,14 +37,14 @@ local plugins = {
     { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
     { "karb94/neoscroll.nvim", config = true },
 
-    -- Dashboard
-    {
-        "amansingh-afk/milli.nvim",
-        lazy = false,
-        config = function()
-            require("milli").vimenter({ splash = "blackhole", loop = true })
-        end,
-    },
+    -- dashboard
+    -- {
+    --     "amansingh-afk/milli.nvim",
+    --     lazy = false,
+    --     config = function()
+    --         require("milli").vimenter({ splash = "blackhole", loop = true })
+    --     end,
+    -- },
 
     -- File navigation
     {
