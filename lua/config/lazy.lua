@@ -148,6 +148,14 @@ local plugins = {
         config = function() require("mason").setup() end,
     },
     {
+        "williamboman/mason-lspconfig.nvim",
+        dependencies = { "williamboman/mason.nvim" },
+        config = function()
+            require("mason-lspconfig").setup({ ensure_installed = { "pyright", "yamlls" } })
+        end,
+    },
+    { "neovim/nvim-lspconfig" },
+    {
         "hrsh7th/nvim-cmp",
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
