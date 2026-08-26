@@ -3,5 +3,7 @@ vim.g.dbs = {
     { name = "VARD", url = os.getenv("BIG_VARD_EXECUTION_PROD") },
     { name = "FRAPP", url = os.getenv("BIG_FRAPP_EXECUTION_PROD")} ,
     { name = "STATISTIK", url = os.getenv("BIG_STATISTIK_EXECUTION_PROD") },
+    { name = "FRAPP_SOURCE", url = os.getenv("FRAPP") .. "?TrustServerCertificate=yes" },
     { name = "BIRTH_CID", url = os.getenv("BIRTH_CID_DADBOD") }
+    
 }
