@@ -170,7 +170,18 @@ local plugins = {
 
     -- Editing
     { "windwp/nvim-autopairs",    event = "InsertEnter", config = true },
-    { "numToStr/Comment.nvim",    lazy = false },
+    {
+    "kylechui/nvim-surround", -- This maes it possible uncomment somehting or add "" to a fiel to a fieldd
+    version = "*",
+    event = "VeryLazy",
+    config = function()
+        require("nvim-surround").setup({
+            keymaps = {
+                visual = "gs",
+            },
+        })
+    end,
+    },
     { "folke/todo-comments.nvim", dependencies = { "nvim-lua/plenary.nvim" }, lazy = false },
     {
         "kylechui/nvim-surround",
