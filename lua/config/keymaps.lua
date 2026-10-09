@@ -15,6 +15,9 @@ map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>",  { desc = "Help" })
 -- Buffers
 map("n", "<leader>bd", "<cmd>bd!<cr>",                  { desc = "Delete buffer" })
 
+-- save file
+map("n", "<leader>w", "<cmd>w<cr>", { desc = "Save current file" })
+
 -- Copy to system clipboard
 map({ "n", "v" }, "<leader>y", '"+y', { desc = "Yank to system clipboard" })
 
