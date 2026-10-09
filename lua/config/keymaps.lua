@@ -32,7 +32,16 @@ map("n", "<C-l>", "<C-w>l")
 map("n", "<Esc>", "<cmd>noh<cr><Esc>")
 
 -- Terminal
-map("n", "<leader>q", "<cmd>ToggleTerm<cr>", { desc = "Toggle terminal" })
+map("n", "<leader>c", "<cmd>ToggleTerm<cr>", { desc = "Toggle terminal" })
+
+-- Close Windows
+map("n", "<leader>q", '<C-w>q',{ desc = "close any window"})
+map("n", "<leader>Q", function()
+    vim.cmd("silent! tabonly")
+    vim.cmd("silent! only")
+    vim.cmd("enew")
+end, { desc = "Close all windows, keep buffers, does not exit nvim tho" })
+
 
 -- LSP (set in lsp config per-buffer, but global reminders)
 -- gd, gD, gi, gr, K — all handled in lsp/init.lua
